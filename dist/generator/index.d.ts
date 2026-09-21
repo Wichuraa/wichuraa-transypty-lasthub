@@ -1,0 +1,20 @@
+import { type Awaitable, type Channel, type Message, type Role, type User } from 'discord.js';
+import type { ResolveImageCallback } from '../downloader/images';
+import { type Marka } from '../branding';
+export type RenderMessageContext = {
+    messages: Message[];
+    channel: Channel;
+    callbacks: {
+        resolveImageSrc: ResolveImageCallback;
+        resolveChannel: (channelId: string) => Awaitable<Channel | null>;
+        resolveUser: (userId: string) => Awaitable<User | null>;
+        resolveRole: (roleId: string) => Awaitable<Role | null>;
+    };
+    poweredBy?: boolean;
+    footerText?: string;
+    saveImages: boolean;
+    favicon: 'guild' | string;
+    hydrate: boolean;
+    marka?: Partial<Marka>;
+};
+export default function render({ messages, channel, callbacks, ...options }: RenderMessageContext): Promise<string>;

@@ -128,7 +128,9 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+# dist jest commitowany, zeby instalacja prosto z GitHuba dzialala
+# nawet wtedy, gdy npm pominie skrypt "prepare"
+# dist
 
 # Gatsby files
 .cache/
@@ -137,7 +139,9 @@ dist
 # public
 
 # vuepress build output
-.vuepress/dist
+.vuepress/# dist jest commitowany, zeby instalacja prosto z GitHuba dzialala
+# nawet wtedy, gdy npm pominie skrypt "prepare"
+# dist
 
 # vuepress v2.x temp and cache directory
 .temp
