@@ -1,4 +1,5 @@
 import type { AttachmentBuilder, Message } from 'discord.js';
+import type { Marka } from './branding';
 import type { RenderMessageContext } from './generator';
 
 export type AttachmentTypes = 'audio' | 'video' | 'image' | 'file';
@@ -35,19 +36,21 @@ export type GenerateFromMessagesOptions<T extends ExportReturnType> = Partial<{
 
   /**
    * The name of the file to return if returnType is ExportReturnType.ATTACHMENT
-   * @default 'transcript-{channel-id}.html'
+   * @default 'transkrypcja-{channel-id}.html'
    */
   filename: string;
 
   /**
-   * Whether to include the "Powered by discord-html-transcripts" footer
-   * @default true
+   * Czy pokazać stopkę „Wygenerowano przez discord-html-transcripts”
+   * @default false
    */
   poweredBy: boolean;
 
   /**
-   * The message right before "Powered by" text. Remember to put the {s}
-   * @default 'Exported {number} message{s}.'
+   * Tekst stopki. Dostępne znaczniki:
+   *   {number}      — liczba zapisanych wiadomości
+   *   {wiadomosci}  — odmieniony rzeczownik („wiadomość” / „wiadomości”)
+   * @default 'Zapisano {number} {wiadomosci}.'
    */
   footerText: string;
 
@@ -64,6 +67,12 @@ export type GenerateFromMessagesOptions<T extends ExportReturnType> = Partial<{
    * @default false - the returned html will be hydrated client-side
    */
   hydrate: boolean;
+
+  /**
+   * Wygląd nagłówka i stopki transkrypcji (nazwa, logo, kolory, odnośnik).
+   * Podane pola nadpisują ustawienia domyślne LastHub.pl.
+   */
+  marka: Partial<Marka>;
 }>;
 
 export type CreateTranscriptOptions<T extends ExportReturnType> = Partial<

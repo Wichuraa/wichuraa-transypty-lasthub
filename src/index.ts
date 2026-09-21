@@ -64,9 +64,10 @@ export async function generateFromMessages<T extends ExportReturnType = ExportRe
 
       ...(options.callbacks ?? {}),
     },
-    poweredBy: options.poweredBy ?? true,
-    footerText: options.footerText ?? 'Exported {number} message{s}.',
+    poweredBy: options.poweredBy ?? false,
+    footerText: options.footerText ?? 'Zapisano {number} {wiadomosci}.',
     favicon: options.favicon ?? 'guild',
+    marka: options.marka,
     hydrate: options.hydrate ?? false,
   });
 
@@ -88,7 +89,7 @@ export async function generateFromMessages<T extends ExportReturnType = ExportRe
   }
 
   return new AttachmentBuilder(Buffer.from(html), {
-    name: options.filename ?? `transcript-${channel.id}.html`,
+    name: options.filename ?? `transkrypcja-${channel.id}.html`,
   }) as unknown as ObjectType<T>;
 }
 

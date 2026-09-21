@@ -19,7 +19,7 @@ export default async function SystemMessage({ message }: { message: Message }) {
           <Highlight color={message.member?.roles.color?.hexColor}>
             {message.author.displayName ?? message.author.username}
           </Highlight>{' '}
-          pinned <i data-goto={message.reference?.messageId}>a message</i> to this channel.
+          przypiął(-ęła) <i data-goto={message.reference?.messageId}>wiadomość</i> na tym kanale.
           {/* reactions */}
           {message.reactions.cache.size > 0 && (
             <DiscordReactions slot="reactions">
@@ -45,7 +45,7 @@ export default async function SystemMessage({ message }: { message: Message }) {
           <Highlight color={message.member?.roles.color?.hexColor}>
             {message.author.displayName ?? message.author.username}
           </Highlight>{' '}
-          boosted the server!
+          ulepszył(a) serwer!
         </DiscordSystemMessage>
       );
 
@@ -55,7 +55,7 @@ export default async function SystemMessage({ message }: { message: Message }) {
           <Highlight color={message.member?.roles.color?.hexColor}>
             {message.author.displayName ?? message.author.username}
           </Highlight>{' '}
-          started a thread: <i data-goto={message.reference?.messageId}>{message.content}</i>
+          rozpoczął(-ęła) wątek: <i data-goto={message.reference?.messageId}>{message.content}</i>
         </DiscordSystemMessage>
       );
 
@@ -102,43 +102,22 @@ export function Highlight({ children, color }: { children: React.ReactNode; colo
 }
 
 const allJoinMessages = [
-  '{user} just joined the server - glhf!',
-  '{user} just joined. Everyone, look busy!',
-  '{user} just joined. Can I get a heal?',
-  '{user} joined your party.',
-  '{user} joined. You must construct additional pylons.',
-  'Ermagherd. {user} is here.',
-  'Welcome, {user}. Stay awhile and listen.',
-  'Welcome, {user}. We were expecting you ( ͡° ͜ʖ ͡°)',
-  'Welcome, {user}. We hope you brought pizza.',
-  'Welcome {user}. Leave your weapons by the door.',
-  'A wild {user} appeared.',
-  'Swoooosh. {user} just landed.',
-  'Brace yourselves {user} just joined the server.',
-  '{user} just joined. Hide your bananas.',
-  '{user} just arrived. Seems OP - please nerf.',
-  '{user} just slid into the server.',
-  'A {user} has spawned in the server.',
-  'Big {user} showed up!',
-  "Where's {user}? In the server!",
-  '{user} hopped into the server. Kangaroo!!',
-  '{user} just showed up. Hold my beer.',
-  'Challenger approaching - {user} has appeared!',
-  "It's a bird! It's a plane! Nevermind, it's just {user}.",
-  "It's {user}! Praise the sun! \\\\[T]/",
-  'Never gonna give {user} up. Never gonna let {user} down.',
-  'Ha! {user} has joined! You activated my trap card!',
-  'Cheers, love! {user} is here!',
-  'Hey! Listen! {user} has joined!',
-  "We've been expecting you {user}",
-  "It's dangerous to go alone, take {user}!",
-  "{user} has joined the server! It's super effective!",
-  'Cheers, love! {user} is here!',
-  '{user} is here, as the prophecy foretold.',
-  "{user} has arrived. Party's over.",
-  'Ready player {user}',
-  '{user} is here to kick butt and chew bubblegum. And {user} is all out of gum.',
-  "Hello. Is it {user} you're looking for?",
+  '{user} dołączył(a) do serwera — miłej gry!',
+  '{user} właśnie wszedł(weszła). Wszyscy udawać zajętych!',
+  'Witaj, {user}. Rozgość się.',
+  '{user} dołączył(a) do drużyny.',
+  'Dziki {user} pojawia się!',
+  'Szuuu. {user} właśnie wylądował(a).',
+  'Trzymajcie się, {user} dołączył(a) do serwera.',
+  '{user} zjawił(a) się. Potrzymaj mi napój.',
+  'Nadciąga wyzwanie — {user} się pojawił(a)!',
+  'To ptak! To samolot! A nie, to tylko {user}.',
+  'Witamy na pokładzie, {user}!',
+  '{user} jest tu, tak jak głosiła przepowiednia.',
+  'Gotowy graczu {user}!',
+  'Hej! Słuchaj! {user} dołączył(a)!',
+  'Czekaliśmy na Ciebie, {user}.',
+  '{user} wbił(a) na serwer. Witamy!',
 ];
 
 export function JoinMessage({ member, fallbackUser }: { member: GuildMember | null; fallbackUser: User }) {

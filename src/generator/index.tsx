@@ -9,6 +9,7 @@ import { renderToString } from '@derockdev/discord-components-core/hydrate';
 import DiscordMessages from './transcript';
 import type { ResolveImageCallback } from '../downloader/images';
 import { streamToString } from '../utils/utils';
+import { polaczMarke, type Marka } from '../branding';
 
 // read the package.json file and get the @derockdev/discord-components-core version
 let discordComponentsVersion = '^3.6.1';
@@ -36,10 +37,12 @@ export type RenderMessageContext = {
   saveImages: boolean;
   favicon: 'guild' | string;
   hydrate: boolean;
+  marka?: Partial<Marka>;
 };
 
 export default async function render({ messages, channel, callbacks, ...options }: RenderMessageContext) {
   const profiles = buildProfiles(messages);
+  const marka = polaczMarke(options.marka);
 
   const { prelude } = await prerenderToNodeStream(
     <html>
@@ -54,14 +57,18 @@ export default async function render({ messages, channel, callbacks, ...options 
           href={
             options.favicon === 'guild'
               ? channel.isDMBased()
-                ? undefined
-                : (channel.guild.iconURL({ size: 16, extension: 'png' }) ?? undefined)
+                ? (marka.logo || undefined)
+                : (channel.guild.iconURL({ size: 16, extension: 'png' }) ?? marka.logo ?? undefined)
               : options.favicon
           }
         />
 
         {/* title */}
-        <title>{channel.isDMBased() ? 'Direct Messages' : channel.name}</title>
+        <title>
+          {channel.isDMBased()
+            ? `Wiadomości prywatne — ${marka.nazwa}`
+            : `#${channel.name} — ${marka.nazwa}`}
+        </title>
 
         {/* message reference handler */}
         <script

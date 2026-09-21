@@ -179,3 +179,7 @@ dist
 # End of https://www.toptal.com/developers/gitignore/api/node,macos
 
 discord-html-transcripts-*.tgz
+# podglad transkrypcji generowany lokalnie
+podglad.html
+test-podglad.mjs
+package-lock.json

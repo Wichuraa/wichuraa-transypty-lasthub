@@ -17,6 +17,7 @@ import MessageContent, { RenderType } from './content';
 import { DiscordEmbed } from './embed';
 import MessageReply from './reply';
 import DiscordSystemMessage from './systemMessage';
+import { odmienWiadomosci } from '../../branding';
 
 export default async function DiscordMessage({
   message,
@@ -97,7 +98,7 @@ export default async function DiscordMessage({
           name={message.thread.name}
           cta={
             message.thread.messageCount
-              ? `${message.thread.messageCount} Message${message.thread.messageCount > 1 ? 's' : ''}`
+              ? `${message.thread.messageCount} ${odmienWiadomosci(message.thread.messageCount)}`
               : 'View Thread'
           }
         >
