@@ -125,6 +125,23 @@ async function MessageSingleASTNode({ node, context }) {
             return (react_1.default.createElement(discord_components_react_1.DiscordCustomEmoji, { name: node.name, url: (0, utils_1.parseDiscordEmoji)(node), embedEmoji: context.type === RenderType.EMBED, largeEmoji: (_b = context._internal) === null || _b === void 0 ? void 0 : _b.largeEmojis }));
         case 'timestamp':
             return react_1.default.createElement(discord_components_react_1.DiscordTime, { timestamp: parseInt(node.timestamp) * 1000, format: node.format });
+        // Nagłówki Discorda: "# ", "## ", "### "
+        case 'heading':
+            return (react_1.default.createElement("div", { style: {
+                    fontWeight: 700,
+                    lineHeight: 1.3,
+                    margin: '8px 0 4px',
+                    fontSize: node.level === 1 ? '1.5em' : node.level === 2 ? '1.25em' : '1.05em',
+                } },
+                react_1.default.createElement(MessageASTNodes, { nodes: node.content, context: context })));
+        // Tekst pomocniczy Discorda: "-# "
+        case 'subtext':
+            return (react_1.default.createElement("div", { style: { fontSize: '0.8em', color: '#949ba4', margin: '2px 0' } },
+                react_1.default.createElement(MessageASTNodes, { nodes: node.content, context: context })));
+        // Lista punktowana: "- " / "* "
+        case 'list':
+            return (react_1.default.createElement("ul", { style: { margin: '4px 0', paddingLeft: '22px' } }, node.items.map((pozycja, i) => (react_1.default.createElement("li", { key: i, style: { margin: '2px 0' } },
+                react_1.default.createElement(MessageASTNodes, { nodes: pozycja, context: context }))))));
         default: {
             console.log(`Unknown node type: ${type}`, node);
             return typeof node.content === 'string' ? (node.content) : (react_1.default.createElement(MessageASTNodes, { nodes: node.content, context: context }));

@@ -229,6 +229,41 @@ export async function MessageSingleASTNode({ node, context }: { node: SingleASTN
     case 'timestamp':
       return <DiscordTime timestamp={parseInt(node.timestamp) * 1000} format={node.format} />;
 
+    // Nagłówki Discorda: "# ", "## ", "### "
+    case 'heading':
+      return (
+        <div
+          style={{
+            fontWeight: 700,
+            lineHeight: 1.3,
+            margin: '8px 0 4px',
+            fontSize: node.level === 1 ? '1.5em' : node.level === 2 ? '1.25em' : '1.05em',
+          }}
+        >
+          <MessageASTNodes nodes={node.content} context={context} />
+        </div>
+      );
+
+    // Tekst pomocniczy Discorda: "-# "
+    case 'subtext':
+      return (
+        <div style={{ fontSize: '0.8em', color: '#949ba4', margin: '2px 0' }}>
+          <MessageASTNodes nodes={node.content} context={context} />
+        </div>
+      );
+
+    // Lista punktowana: "- " / "* "
+    case 'list':
+      return (
+        <ul style={{ margin: '4px 0', paddingLeft: '22px' }}>
+          {(node.items as unknown[]).map((pozycja, i) => (
+            <li key={i} style={{ margin: '2px 0' }}>
+              <MessageASTNodes nodes={pozycja as never} context={context} />
+            </li>
+          ))}
+        </ul>
+      );
+
     default: {
       console.log(`Unknown node type: ${type}`, node);
       return typeof node.content === 'string' ? (
