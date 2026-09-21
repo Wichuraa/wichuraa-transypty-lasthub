@@ -37,7 +37,12 @@ function ComponentRow({ component, id, context, }) {
         case discord_js_1.ComponentType.Separator:
             return react_1.default.createElement(Spacing_1.default, { key: id, spacing: component.spacing, divider: component.divider });
         case discord_js_1.ComponentType.TextDisplay:
-            return react_1.default.createElement(content_1.default, { key: id, content: component.content, context: Object.assign(Object.assign({}, context), { type: content_2.RenderType.NORMAL }) });
+            // Kontener jest ulozony w kolumne (flex), wiec tresc musi trafic do niego
+            // jako JEDEN element blokowy. Bez tego opakowania kazdy wezel inline
+            // (emotka, pogrubienie, zwykly tekst) staje sie osobnym elementem flex
+            // i laduje w nowej linii.
+            return (react_1.default.createElement("div", { key: id, style: { minWidth: 0, wordBreak: 'break-word' } },
+                react_1.default.createElement(content_1.default, { content: component.content, context: Object.assign(Object.assign({}, context), { type: content_2.RenderType.NORMAL }) })));
         default:
             return null;
     }

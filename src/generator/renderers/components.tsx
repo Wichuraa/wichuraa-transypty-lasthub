@@ -92,7 +92,15 @@ export default function ComponentRow({
       return <DiscordSeparator key={id} spacing={component.spacing} divider={component.divider} />;
 
     case ComponentType.TextDisplay:
-      return <MessageContent key={id} content={component.content} context={{ ...context, type: RenderType.NORMAL }} />;
+      // Kontener jest ulozony w kolumne (flex), wiec tresc musi trafic do niego
+      // jako JEDEN element blokowy. Bez tego opakowania kazdy wezel inline
+      // (emotka, pogrubienie, zwykly tekst) staje sie osobnym elementem flex
+      // i laduje w nowej linii.
+      return (
+        <div key={id} style={{ minWidth: 0, wordBreak: 'break-word' }}>
+          <MessageContent content={component.content} context={{ ...context, type: RenderType.NORMAL }} />
+        </div>
+      );
 
     default:
       return null;
